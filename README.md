@@ -167,3 +167,8 @@ docker image repositories we'll need for OSCP.
 1. Synchronize all repositories with the following command:
 <pre><code>for i in $(hammer --csv repository list --organization-id=1  | awk -F, {'print $1'} | grep -vi '^ID'); do hammer repository synchronize --id ${i} --organization-id=1 --async; done</code></pre>
    Take a well earned break while all repos sync!
+
+# Step 2: Install IdM
+
+# Step 3: Install OpenShift Container Platform (OSCP)
+
