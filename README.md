@@ -32,14 +32,14 @@ for r in rhel-7-server-rpms \
   subscription-manager repos --enable=$r;
 done;
 ```
-
+  
 8. Install bits and reboot with...
 ```
 yum install -y satellite-installer katello ipa-client \
 && yum update -y \
 && sync && reboot
 ```
-
+  
 9. Log back into the server, and run the installer like so:
 ```
 satellite-installer --foreman-initial-organization "OSCP PoC" \
@@ -58,7 +58,7 @@ satellite-installer --foreman-initial-organization "OSCP PoC" \
     --katello-proxy-url URL of the proxy server (default: nil)
     --katello-proxy-username Proxy username for authentication (default: nil)
 ```
-
+  
 10. 
 
 
