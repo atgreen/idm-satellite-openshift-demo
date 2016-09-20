@@ -45,8 +45,8 @@ done;</code></pre>
    Be sure to provide your own values for initial org, initial
    location, and admin passord.  Also, use one or more of the
    following installer options to configure access through the web
-   proxy:<pre><code>
-    --katello-proxy-password Proxy password for authentication (default: nil)
+   proxy:
+<pre><code>    --katello-proxy-password Proxy password for authentication (default: nil)
     --katello-proxy-port Port the proxy is running on (default: nil)
     --katello-proxy-url URL of the proxy server (default: nil)
     --katello-proxy-username Proxy username for authentication (default: nil)</code></pre>
