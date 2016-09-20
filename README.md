@@ -84,7 +84,7 @@ hammer repository-set enable --name "Red Hat OpenShift Enterprise 3.2 (RPMs)" --
 
 2. Save the following script and run it.  It will create all of the
 docker image repositories we'll need for OSCP.
-<pre><code>    #!/bin/bash
+<pre><code>#!/bin/bash
     
     ORG_ID=1
     PRODUCT_NAME="OSCP Docker Images"
