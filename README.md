@@ -15,35 +15,35 @@ acting as the trusted repository for RPM and container content.
 1. Create a VM with 12GB of RAM and 400GB of storage.  Name it
    `sat6.atgreen.org`.
 
-2. Run "`subscription-manager register`" with the appropriate
+1. Run "`subscription-manager register`" with the appropriate
    --proxy=... and related arguments.
 
-4. Run "`subscription-manager list --all --available`" to find the Pool ID of the Satellite subscription. 
+1. Run "`subscription-manager list --all --available`" to find the Pool ID of the Satellite subscription. 
 
-5. Run "`subscription-manager attach --pool=`"... with the appropriate Pool ID.
+1. Run "`subscription-manager attach --pool=`"... with the appropriate Pool ID.
 
-6. Run "`subscription-manager repos --disable=\*`" to disable all repos.
+1. Run "`subscription-manager repos --disable=\*`" to disable all repos.
 
-7. Selectively enable repos with...
+1. Selectively enable repos with...
 <pre><code>for r in rhel-7-server-rpms \
          rhel-server-rhscl-7-rpms \
          rhel-7-server-satellite-6.2-rpms; do
     subscription-manager repos --enable=$r;
 done;</code></pre>
   
-8. Install bits and reboot with...
+1. Install bits and reboot with...
 <pre><code>yum install -y satellite-installer katello ipa-client \
 && yum update -y \
 && sync && reboot</code></pre>
   
-9. Log back into the server, and run the installer like so:
+1. Log back into the server, and run the installer like so:
 <pre><code>satellite-installer --foreman-initial-organization "OSCP PoC" \
                         --foreman-initial-location "Innovation Zone" \
                         --foreman-admin-username=admin \
                         --foreman-admin-password=Redhat1! \
                         --scenario=satellite</code></pre>
    Be sure to provide your own values for initial org, initial
-   location, and admin passord.  Also, use one or more of the
+   location, and admin password.  Also, use one or more of the
    following installer options to configure access through the web
    proxy:
 <pre><code>--katello-proxy-password Proxy password for authentication (default: nil)
@@ -51,6 +51,24 @@ done;</code></pre>
 --katello-proxy-url URL of the proxy server (default: nil)
 --katello-proxy-username Proxy username for authentication (default: nil)</code></pre>
   
-10. 
+1. Log into access.redhat.com and generate a manifest for your
+   Satellite with all required subscriptions.  You'll need a RHEL
+   Server subscription for the IdM server, and some number of
+   OpenShift subs for the OSCP cluster.  Additional specific details
+   on creating and downloading the manifest file are found here:
+   https://access.redhat.com/solutions/118573
+
+1. Log into the Satellite web UI, and navigate to Content>Red Hat
+   Subscriptions.  Click on the "Browse..." button to select your
+   freshly downloaded manifest zip file, and the "Upload" to send it
+   to the Satellite.  Wait until Satellite tells you that it has
+   successfully imported the manifest.
+
+1. Run the following commands to enable the RPM repos that we need:
+<pre><code>hammer repository-set enable --name "Red Hat Enterprise Linux 7 Server (Kickstart)" --product "Red Hat Enterprise Linux Server" --organization-id 1 --basearch x86_64 --releasever 7Server
+hammer repository-set enable --name "Red Hat Enterprise Linux 7 Server (RPMs)" --product "Red Hat Enterprise Linux Server" --organization-id 1 --basearch x86_64 --releasever 7Server
+hammer repository-set enable --name "Red Hat Satellite Tools 6.2 (for RHEL 7 Server) (RPMs)" --product "Red Hat Enterprise Linux Server" --organization-id 1 --basearch x86_64 
+hammer repository-set enable --name "Red Hat Enterprise Linux 7 Server - Extras (RPMs)" --product "Red Hat Enterprise Linux Server" --organization-id 1 --basearch x86_64 
+hammer repository-set enable --name "Red Hat OpenShift Enterprise 3.2 (RPMs)" --product "Red Hat OpenShift Enterprise" --organization-id 1 --basearch x86_64</code></pre>
 
 
