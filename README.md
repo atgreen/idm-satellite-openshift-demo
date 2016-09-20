@@ -164,3 +164,6 @@ docker image repositories we'll need for OSCP.
     
     rm -f $PRODUCT_LIST_FILE > /dev/null</code></pre>
     
+1. Synchronize all repositories with the following command:
+<pre><code>for i in $(hammer --csv repository list --organization-id=1  | awk -F, {'print $1'} | grep -vi '^ID'); do hammer repository synchronize --id ${i} --organization-id=1 --async; done</code></pre>
+   Take a well earned break while all repos sync!
