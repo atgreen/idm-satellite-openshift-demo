@@ -28,7 +28,7 @@ acting as the trusted repository for RPM and container content.
 <pre><code>for r in rhel-7-server-rpms \
          rhel-server-rhscl-7-rpms \
          rhel-7-server-satellite-6.2-rpms; do
-  subscription-manager repos --enable=$r;
+    subscription-manager repos --enable=$r;
 done;</code></pre>
   
 8. Install bits and reboot with...
@@ -38,10 +38,10 @@ done;</code></pre>
   
 9. Log back into the server, and run the installer like so:
 <pre><code>satellite-installer --foreman-initial-organization "OSCP PoC" \
-                    --foreman-initial-location "Innovation Zone" \
-                    --foreman-admin-username=admin \
-                    --foreman-admin-password=Redhat1! \
-                    --scenario=satellite</code></pre>
+                        --foreman-initial-location "Innovation Zone" \
+                        --foreman-admin-username=admin \
+                        --foreman-admin-password=Redhat1! \
+                        --scenario=satellite</code></pre>
    Be sure to provide your own values for initial org, initial
    location, and admin passord.  Also, use one or more of the
    following installer options to configure access through the web
