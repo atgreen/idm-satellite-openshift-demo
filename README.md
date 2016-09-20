@@ -1,6 +1,13 @@
 # idm-satellite-openshift-demo
 Notes on installing and configuring a OpenShift Container Platform in a disconnected environment with IdM and Satellite 6
 
+The following configurations of IdM, Satellite and OpenShift Container
+Platform (OSCP) assume that we're working in a lab environment that is
+disconnected from typical enterprise services.  For the most part, we
+also assume no access to the internet.  The one exception would be for
+the Satellite server, which is allowed to access the internet via web
+proxy.
+
 # Step 1: Install Satellite 6
 
 In the disconnected environment, Red Hat Satellite becomes the conduit
@@ -168,7 +175,36 @@ docker image repositories we'll need for OSCP.
 <pre><code>for i in $(hammer --csv repository list --organization-id=1  | awk -F, {'print $1'} | grep -vi '^ID'); do hammer repository synchronize --id ${i} --organization-id=1 --async; done</code></pre>
    Take a well earned break while all repos sync!
 
+1. Create server7-cv
+
+1. Create server7-ak
+
+1. Create oscp-cv
+
+1. Create oscp-ak
+
 # Step 2: Install IdM
+
+The IdM server will host DNS and user authentication services.
+
+1. Create a VM with 4GB of RAM and 12GB of storage.  Name it
+   `idm.atgreen.org`.
+
+1. Run "`rpm -ihv http://IP-OF-SATELLITE/pub/katello-ca-consumer-latest.noarch.rpm`"
+
+1. Run "`subscription-manager register --organization='OSCP PoC' --activationkey='server7-ak'`"
+
+1. Run "`yum -y install ipa-server && yum -y update && sync && reboot`"
+
+1. Log back into the IdM server and run "`ipa-server-install --setup-dns --mkhomedir`"
+
+1. Log back into the Satellite server and set /etc/resolv.conf to
+   point at the IdM server, where DNS is now hosted.
+
+1. On the Satellite, run "`ipa-client-install --mkhomedir`"
+
+1. Set the nameserver on your browser host to point at the IdM server,
+   and keep it there.
 
 # Step 3: Install OpenShift Container Platform (OSCP)
 
