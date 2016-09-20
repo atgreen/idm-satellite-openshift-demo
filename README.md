@@ -67,7 +67,7 @@ done;</code></pre>
 1. On the satellite server, create ~/.hammer/cli_config.yml in order
    to provide credentials to the hammer cli:
 <code><pre>mkdir ~/.hammer
-cat > ~/.hammer/cli_config.yml <<\EOF
+cat > ~/.hammer/cli_config.yml <<EOF
     :foreman:
         :enable_module: true
         :host: 'https://localhost/'
