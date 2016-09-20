@@ -18,8 +18,6 @@ acting as the trusted repository for RPM and container content.
 2. Run "`subscription-manager register`" with the appropriate
    --proxy=... and related arguments.
 
-3. Run "`subscription-manager register`"
-
 4. Run "`subscription-manager list --all --available`" to find the Pool ID of the Satellite subscription. 
 
 5. Run "`subscription-manager attach --pool=`"... with the appropriate Pool ID.
