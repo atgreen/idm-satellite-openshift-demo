@@ -66,14 +66,14 @@ done;</code></pre>
 
 1. On the satellite server, create ~/.hammer/cli_config.yml in order
    to provide credentials to the hammer cli:
-<pre><code>mkdir ~/.hammer
-cat > ~/.hammer/cli_config.yml \<\< EOF
+```mkdir ~/.hammer
+cat > ~/.hammer/cli_config.yml << EOF
 :foreman:
     :enable_module: true
     :host: 'https://localhost/'
     :username: 'admin'
     :password: 'Redhat1!'
-EOF</code></pre>
+EOF```
 
 1. Run the following commands to enable the RPM repos that we need:
 <pre><code>hammer repository-set enable --name "Red Hat Enterprise Linux 7 Server (Kickstart)" --product "Red Hat Enterprise Linux Server" --organization-id 1 --basearch x86_64 --releasever 7Server
