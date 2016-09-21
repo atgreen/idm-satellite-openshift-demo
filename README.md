@@ -191,7 +191,7 @@ docker image repositories we'll need for OSCP.
     --repository "Red Hat Satellite Tools 6.2 for RHEL 7 Server RPMs x86_64"
     
     hammer content-view publish --name "RHEL 7 Server" --organization-id 1 \
-    --description "Initial publish"</code></pre>
+    --description "Initial publish" --async</code></pre>
 
 1. Create server7-ak
 
@@ -215,7 +215,7 @@ docker image repositories we'll need for OSCP.
     --repository "Red Hat OpenShift Enterprise 3.2 RPMs x86_64"
     
     hammer content-view publish --name "OSCP Server" --organization-id 1 \
-    --description "Initial publish"</code></pre>
+    --description "Initial publish" --async</code></pre>
 
 1. Create oscp-ak
 
