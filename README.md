@@ -1,6 +1,8 @@
 # idm-satellite-openshift-demo
 Notes on installing and configuring a OpenShift Container Platform in a disconnected environment with IdM and Satellite 6
 
+# WORK IN PROGRESS
+
 The following configurations of IdM, Satellite and OpenShift Container
 Platform (OSCP) assume that we're working in a lab environment that is
 disconnected from typical enterprise services.  For the most part, we
@@ -238,9 +240,11 @@ The IdM server will host DNS and user authentication services.
 1. Create a VM with 4GB of RAM and 12GB of storage.  Name it
    `idm.atgreen.org`.
 
-1. Run "`rpm -ihv http://IP-OF-SATELLITE/pub/katello-ca-consumer-latest.noarch.rpm`"
+1. Add sat6.atgreen.org to the ```/etc/hosts``` file on this new server.
 
-1. Run "`subscription-manager register --organization='OSCP PoC' --activationkey='server7-ak'`"
+1. Run "`rpm -ihv http://sat6.atgreen.org/pub/katello-ca-consumer-latest.noarch.rpm`"
+
+1. Run "`subscription-manager register --org="OSCP_PoC" --activationkey 'rhel-7-server-ak'`"
 
 1. Run "`yum -y install ipa-server && yum -y update && sync && reboot`"
 
