@@ -175,7 +175,11 @@ docker image repositories we'll need for OSCP.
 <pre><code>for i in $(hammer --csv repository list --organization-id=1  | awk -F, {'print $1'} | grep -vi '^ID'); do hammer repository synchronize --id ${i} --organization-id=1 --async; done</code></pre>
    Take a well earned break while all repos sync!
 
-1. Create and publish the Content View for a regular RHEL server:
+1. Run ```hammer lifecycle-environment create --organization-id 1
+--name Dev --description "Development" --prior "Library"``` to create
+a developement lifecycle environment.
+
+1. Create, publish, and promote the Content View for a regular RHEL server:
 <pre><code>hammer content-view create --name "RHEL 7 Server" --organization-id 1 
       
     hammer content-view add-repository --name "RHEL 7 Server" --organization-id 1 \
@@ -191,11 +195,15 @@ docker image repositories we'll need for OSCP.
     --repository "Red Hat Satellite Tools 6.2 for RHEL 7 Server RPMs x86_64"
     
     hammer content-view publish --name "RHEL 7 Server" --organization-id 1 \
-    --description "Initial publish" --async</code></pre>
+    --description "Initial publish"
 
-1. Create server7-ak
+    hammer content-view version promote --organization-id 1 --content-view "RHEL 7 Server" --to-lifecycle-environment "Dev"</code></pre>
 
-1. Create and publish the Content View for an OSCP server:
+1. Run ```hammer activation-key create --name "rhel-7-server-ak" --content-view "RHEL 7 Server" --lifecycle-environment Dev --organization-id 1``` to create the RHEL 7 Server activation key.
+
+1. Run ```subscription list --organization-id 1``` and attach the appropriate subscription to ``rhel-7-server-ak``` like so: ```activation-key add-subscription --organization-id 1 --name "rhel-7-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
+
+1. Create, publish, and promote the Content View for an OSCP server:
 <pre><code>hammer content-view create --name "OSCP Server" --organization-id 1 
     
     hammer content-view add-repository --name "OSCP Server" --organization-id 1 \
@@ -215,9 +223,13 @@ docker image repositories we'll need for OSCP.
     --repository "Red Hat OpenShift Enterprise 3.2 RPMs x86_64"
     
     hammer content-view publish --name "OSCP Server" --organization-id 1 \
-    --description "Initial publish" --async</code></pre>
+    --description "Initial publish"
 
-1. Create oscp-ak
+    hammer content-view version promote --organization-id 1 --content-view "OSCP Server" --to-lifecycle-environment "Dev"</code></pre>
+
+1. Run ```hammer activation-key create --name "oscp-server-ak" --content-view "OSCP Server" --lifecycle-environment Dev --organization-id 1``` to create the OSCP Server activation key.
+
+2. Run ```subscription list --organization-id 1``` and attach the appropriate subscription to ```oscp-server-ak``` like so: ```activation-key add-subscription --organization-id 1 --name "oscp-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
 
 # Step 2: Install IdM
 
