@@ -233,9 +233,9 @@ a developement lifecycle environment.
 
     hammer content-view version promote --organization-id 1 --content-view "OCP Server" --to-lifecycle-environment "Dev"</code></pre>
 
-1. Run ```hammer activation-key create --name "oscp-server-ak" --content-view "OCP Server" --lifecycle-environment Dev --organization-id 1``` to create the OCP Server activation key.
+1. Run ```hammer activation-key create --name "ocp-server-ak" --content-view "OCP Server" --lifecycle-environment Dev --organization-id 1``` to create the OCP Server activation key.
 
-2. Run ```hammer subscription list --organization-id 1``` and attach the appropriate subscription to ```oscp-server-ak``` like so: ```hammer activation-key add-subscription --organization-id 1 --name "oscp-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
+2. Run ```hammer subscription list --organization-id 1``` and attach the appropriate subscription to ```ocp-server-ak``` like so: ```hammer activation-key add-subscription --organization-id 1 --name "ocp-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
 
 # Step 2: Install IdM
 
