@@ -24,9 +24,9 @@ acting as the trusted repository for RPM and container content.
 1. Create a VM with 12GB of RAM and 400GB of storage.  Name it
    `sat6.atgreen.org`.
 
-1. Set the hostname in /etc/hostname and add an entry in /etc/hosts
-   with the fully qualified domain name, then reboot and make sure
-   the name is set properly and you can ping it.
+1. Set the hostname in ```/etc/hostname``` and add an entry in
+   ```/etc/hosts``` with the fully qualified domain name, then reboot
+   and make sure the name is set properly and that you can ping it.
 
 1. Run "`subscription-manager register`" with the appropriate
    --proxy=... and related arguments.
