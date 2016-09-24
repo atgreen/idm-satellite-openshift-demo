@@ -4,7 +4,7 @@ Notes on installing and configuring a OpenShift Container Platform in a disconne
 # WORK IN PROGRESS
 
 The following configurations of IdM, Satellite and OpenShift Container
-Platform (OSCP) assume that we're working in a lab environment that is
+Platform (OCP) assume that we're working in a lab environment that is
 disconnected from typical enterprise services.  For the most part, we
 also assume no access to the internet.  The one exception would be for
 the Satellite server, which is allowed to access the internet via web
@@ -23,6 +23,10 @@ acting as the trusted repository for RPM and container content.
 
 1. Create a VM with 12GB of RAM and 400GB of storage.  Name it
    `sat6.atgreen.org`.
+
+1. Set the hostname in /etc/hostname and add an entry in /etc/hosts
+   with the fully qualified domain name, then reboot and make sure
+   the name is set properly and you can ping it.
 
 1. Run "`subscription-manager register`" with the appropriate
    --proxy=... and related arguments.
@@ -46,7 +50,7 @@ done;</code></pre>
 && sync && reboot</code></pre>
   
 1. Log back into the server, and run the installer like so:
-<pre><code>satellite-installer --foreman-initial-organization "OSCP PoC" \
+<pre><code>satellite-installer --foreman-initial-organization "OCP PoC" \
                         --foreman-initial-location "Innovation Zone" \
                         --foreman-admin-username=admin \
                         --foreman-admin-password=Redhat1! \
@@ -63,7 +67,7 @@ done;</code></pre>
 1. Log into access.redhat.com and generate a manifest for your
    Satellite with all required subscriptions.  You'll need a RHEL
    Server subscription for the IdM server, and some number of
-   OpenShift subs for the OSCP cluster.  Additional specific details
+   OpenShift subs for the OCP cluster.  Additional specific details
    on creating and downloading the manifest file are found here:
    https://access.redhat.com/solutions/118573
 
@@ -92,11 +96,11 @@ hammer repository-set enable --name "Red Hat Enterprise Linux 7 Server - Extras 
 hammer repository-set enable --name "Red Hat OpenShift Enterprise 3.2 (RPMs)" --product "Red Hat OpenShift Enterprise" --organization-id 1 --basearch x86_64</code></pre>
 
 2. Save the following script and run it.  It will create all of the
-docker image repositories we'll need for OSCP.
+docker image repositories we'll need for OCP.
 <pre><code>#!/bin/bash
     
     ORG_ID=1
-    PRODUCT_NAME="OSCP Docker Images"
+    PRODUCT_NAME="OCP Docker Images"
     
     upstream_repos=( \
         dotnet/dotnetcore-10-rhel7 \
@@ -205,31 +209,31 @@ a developement lifecycle environment.
 
 1. Run ```subscription list --organization-id 1``` and attach the appropriate subscription to ```rhel-7-server-ak``` like so: ```activation-key add-subscription --organization-id 1 --name "rhel-7-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
 
-1. Create, publish, and promote the Content View for an OSCP server:
-<pre><code>hammer content-view create --name "OSCP Server" --organization-id 1 
+1. Create, publish, and promote the Content View for an OCP server:
+<pre><code>hammer content-view create --name "OCP Server" --organization-id 1 
     
-    hammer content-view add-repository --name "OSCP Server" --organization-id 1 \
+    hammer content-view add-repository --name "OCP Server" --organization-id 1 \
     --product "Red Hat Enterprise Linux Server" \
     --repository "Red Hat Enterprise Linux 7 Server - Extras RPMs x86_64"
     
-    hammer content-view add-repository --name "OSCP Server" \
+    hammer content-view add-repository --name "OCP Server" \
     --organization-id 1 --product "Red Hat Enterprise Linux Server" \
     --repository "Red Hat Enterprise Linux 7 Server RPMs x86_64 7Server"
     
-    hammer content-view add-repository --name "OSCP Server" --organization-id 1 \
+    hammer content-view add-repository --name "OCP Server" --organization-id 1 \
     --product "Red Hat Enterprise Linux Server" \
     --repository "Red Hat Satellite Tools 6.2 for RHEL 7 Server RPMs x86_64"
     
-    hammer content-view add-repository --name "OSCP Server" --organization-id 1 \
+    hammer content-view add-repository --name "OCP Server" --organization-id 1 \
     --product "Red Hat OpenShift Enterprise" \
     --repository "Red Hat OpenShift Enterprise 3.2 RPMs x86_64"
     
-    hammer content-view publish --name "OSCP Server" --organization-id 1 \
+    hammer content-view publish --name "OCP Server" --organization-id 1 \
     --description "Initial publish"
 
-    hammer content-view version promote --organization-id 1 --content-view "OSCP Server" --to-lifecycle-environment "Dev"</code></pre>
+    hammer content-view version promote --organization-id 1 --content-view "OCP Server" --to-lifecycle-environment "Dev"</code></pre>
 
-1. Run ```hammer activation-key create --name "oscp-server-ak" --content-view "OSCP Server" --lifecycle-environment Dev --organization-id 1``` to create the OSCP Server activation key.
+1. Run ```hammer activation-key create --name "oscp-server-ak" --content-view "OCP Server" --lifecycle-environment Dev --organization-id 1``` to create the OCP Server activation key.
 
 2. Run ```subscription list --organization-id 1``` and attach the appropriate subscription to ```oscp-server-ak``` like so: ```activation-key add-subscription --organization-id 1 --name "oscp-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
 
@@ -244,7 +248,7 @@ The IdM server will host DNS and user authentication services.
 
 1. Run "`rpm -ihv http://sat6.atgreen.org/pub/katello-ca-consumer-latest.noarch.rpm`"
 
-1. Run "`subscription-manager register --org="OSCP_PoC" --activationkey 'rhel-7-server-ak'`"
+1. Run "`subscription-manager register --org="OCP_PoC" --activationkey 'rhel-7-server-ak'`"
 
 1. Run "`yum -y install ipa-server && yum -y update && sync && reboot`"
 
@@ -258,5 +262,5 @@ The IdM server will host DNS and user authentication services.
 1. Set the nameserver on your browser host to point at the IdM server,
    and keep it there.
 
-# Step 3: Install OpenShift Container Platform (OSCP)
+# Step 3: Install OpenShift Container Platform (OCP)
 
