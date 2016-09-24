@@ -207,7 +207,7 @@ a developement lifecycle environment.
 
 1. Run ```hammer activation-key create --name "rhel-7-server-ak" --content-view "RHEL 7 Server" --lifecycle-environment Dev --organization-id 1``` to create the RHEL 7 Server activation key.
 
-1. Run ```hammer subscription list --organization-id 1``` and attach the appropriate subscription to ```rhel-7-server-ak``` like so: ```activation-key add-subscription --organization-id 1 --name "rhel-7-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
+1. Run ```hammer subscription list --organization-id 1``` and attach the appropriate subscription to ```rhel-7-server-ak``` like so: ```hammer activation-key add-subscription --organization-id 1 --name "rhel-7-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
 
 1. Create, publish, and promote the Content View for an OCP server:
 <pre><code>hammer content-view create --name "OCP Server" --organization-id 1 
@@ -235,7 +235,7 @@ a developement lifecycle environment.
 
 1. Run ```hammer activation-key create --name "oscp-server-ak" --content-view "OCP Server" --lifecycle-environment Dev --organization-id 1``` to create the OCP Server activation key.
 
-2. Run ```hammer subscription list --organization-id 1``` and attach the appropriate subscription to ```oscp-server-ak``` like so: ```activation-key add-subscription --organization-id 1 --name "oscp-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
+2. Run ```hammer subscription list --organization-id 1``` and attach the appropriate subscription to ```oscp-server-ak``` like so: ```hammer activation-key add-subscription --organization-id 1 --name "oscp-server-ak"  --quantity 1 --subscription-id [SUBSCRIPTION ID HERE]```.
 
 # Step 2: Install IdM
 
