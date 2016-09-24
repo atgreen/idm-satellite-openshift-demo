@@ -67,7 +67,7 @@ done;</code></pre>
 1. Log into access.redhat.com and generate a manifest for your
    Satellite with all required subscriptions.  You'll need a RHEL
    Server subscription for the IdM server, and some number of
-   OpenShift subs for the OCP cluster.  Additional specific details
+   OpenShift subs for the OCP cluster.  Specific details
    on creating and downloading the manifest file are found here:
    https://access.redhat.com/solutions/118573
 
