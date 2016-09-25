@@ -288,6 +288,6 @@ The OCP server will be an all-in-one OpenShift deployment.
 
 1. Run "```subscription-manager repos --enable=\*```"
 
-1. Run "```yum install -y ipa-client katello-agent docker ansible-openshift-playbooks && yum -y update && reboot```"
+1. Run "```yum install -y ipa-client katello-agent docker openshift-ansible-playbooks && yum -y update && reboot```"
 
 1. Log back in and run "```ipa-client-install --mkhomedir -p admin -w Redhat1! -U```"
