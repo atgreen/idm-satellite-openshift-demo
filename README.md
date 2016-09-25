@@ -295,9 +295,40 @@ The OCP server will be an all-in-one OpenShift deployment.
 1. Add a second disk for internal docker images (I'm using 400GB), and
 determine the device name.  In my example, it is `/dev/vdb`.
 
-1. Edit `/etc/sysconfig/docker-storage-config` so it looks like this:
+1. Edit `/etc/sysconfig/docker-storage-setup` so it looks like this:
 <pre><code>DEVS=/dev/vdb
     VG=docker-vg</code></pre>
 
 1. Run `docker-storage-setup && systemctl restart docker`.
 
+1. Edit `/etc/ansible/hosts` so it looks like this:
+<pre><code># Create an OSEv3 group that contains the masters, nodes, and etcd groups
+[OSEv3:children]
+masters
+nodes
+etcd
+
+# Set variables common for all OSEv3 hosts
+[OSEv3:vars]
+ansible_ssh_user=root
+deployment_type=openshift-enterprise
+openshift_master_default_subdomain=oscp2.atgreen.org
+openshift_examples_modify_imagestreams=true
+oreg_url=satellite.atgreen.org:5000/greenlab-ose_docker_images-openshift3_ose-${component}:${version}
+openshift_docker_additional_registries=satellite.atgreen.org:5000
+openshift_docker_insecure_registries=satellite.atgreen.org:5000
+openshift_docker_blocked_registries=registry.access.redhat.com,docker.io
+openshift_docker_disable_push_dockerhub=True
+openshift_master_identity_providers=[{'name': 'allow_all', 'login': 'true', 'challenge': 'true', 'kind': 'AllowAllPasswordIdentityProvider'}]
+
+# host group for masters
+[masters]
+oscp2.atgreen.org
+
+# host group for etcd
+[etcd]
+oscp2.atgreen.org
+
+# host group for nodes, includes region info
+[nodes]
+oscp2.atgreen.org openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true</code></pre>
