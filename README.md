@@ -301,6 +301,8 @@ determine the device name.  In my example, it is `/dev/vdb`.
 
 1. Run `docker-storage-setup && systemctl restart docker`.
 
+1. Make a passwordless SSH key for root by running `ssh-keygen` and hitting `[Enter]` for every question.  Then use `ssh-copy-id ocp.atgreen.org` to enable passwordless ssh.
+
 1. Edit `/etc/ansible/hosts` so it looks like this:
 <pre><code># Create an OSEv3 group that contains the masters, nodes, and etcd groups
     [OSEv3:children]
