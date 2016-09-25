@@ -244,13 +244,16 @@ The IdM server will host DNS and user authentication services.
 1. Create a VM with 4GB of RAM and 12GB of storage.  Name it
    `idm.atgreen.org`.
 
-1. Add sat6.atgreen.org to the ```/etc/hosts``` file on this new server.
+1. Add sat6.atgreen.org and ipa.atgreen.org to the ```/etc/hosts```
+   file on this new server.
 
 1. Run "`rpm -ihv http://sat6.atgreen.org/pub/katello-ca-consumer-latest.noarch.rpm`"
 
 1. Run "`subscription-manager register --org="OCP_PoC" --activationkey 'rhel-7-server-ak'`"
 
-1. Run "`yum -y install ipa-server && yum -y update && sync && reboot`"
+1. Run "```subscription-manager repos --enable=\*```"
+
+1. Run "`yum install -y ipa-server ipa-server-dns katello-agent && yum -y update && reboot`"
 
 1. Log back into the IdM server and run "`ipa-server-install --setup-dns --mkhomedir`"
 
