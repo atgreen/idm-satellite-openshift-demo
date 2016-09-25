@@ -339,6 +339,6 @@ determine the device name.  In my example, it is `/dev/vdb`.
 <pre><code>#!/bin/sh
     perl -p -i -e "s|sat6.atgreen.org:5000/openshift3/|sat6.atgreen.org:5000/ocp_poc-ocp_docker_images-openshift3_|g" $1
     perl -p -i -e "s|sat6.atgreen.org:5000/rhscl/|sat6.atgreen.org:5000/ocp_poc-ocp_docker_images-rhscl_|g" $1</code></pre>
-This is required in order to rewrite ImageStream references so they pull bits out of Satellite correctly.  Execute this script against every ImageStream in one batch run, do this: `OC_EDITOR=./fix.sh oc edit is -n openshift`.
+This is required in order to rewrite ImageStream references so they pull bits out of Satellite correctly.  To execute this script against every ImageStream in one batch run, do this: `OC_EDITOR=./fix.sh oc edit is -n openshift`.
 
 
