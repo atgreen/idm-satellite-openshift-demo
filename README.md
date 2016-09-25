@@ -357,8 +357,8 @@ are to configure persistent storage, enable metrics and logging, and
 to switch user authentication over to LDAP on IdM.
 
 Feedback on this tutorial via the
-[https://github.com/atgreen/idm-satellite-openshift-demo/issues](github
-issue tracker) is welcome.
+[github issue tracker](https://github.com/atgreen/idm-satellite-openshift-demo/issues)
+is welcome.
 
 
 Thank you,
