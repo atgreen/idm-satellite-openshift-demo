@@ -291,3 +291,13 @@ The OCP server will be an all-in-one OpenShift deployment.
 1. Run "```yum install -y ipa-client katello-agent docker openshift-ansible-playbooks && yum -y update && reboot```"
 
 1. Log back in and run "```ipa-client-install --mkhomedir -p admin -w Redhat1! -U```"
+
+1. Add a second disk for internal docker images (I'm using 400GB), and
+determine the device name.  In my example, it is `/dev/vdb`.
+
+1. Edit `/etc/sysconfig/docker-storage-config` so it looks like this:
+<pre><code>DEVS=/dev/vdb
+    VG=docker-vg</code></pre>
+
+1. Run `docker-storage-setup && systemctl restart docker`.
+
