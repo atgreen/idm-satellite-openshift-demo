@@ -266,12 +266,29 @@ public DNS services.
     firewall-cmd --reload</code></pre>
 
 1. Log back into the Satellite server and set ```/etc/resolv.conf``` to
-   point at the IdM server, where DNS is now hosted.
+   point at the new IdM server.
 
-1. On the Satellite, run "```ipa-client-install --mkhomedir```"
+1. On the Satellite, run "```ipa-client-install --mkhomedir -p admin -w Redhat1! -U```"
 
 1. Set the nameserver on your browser host to point at the IdM server,
    and keep it there.
 
 # Step 3: Install OpenShift Container Platform (OCP)
 
+The OCP server will be an all-in-one OpenShift deployment.
+
+1. Create a VM with 8GB of RAM and 30GB of storage.  Name it
+   `idm.atgreen.org`.
+
+1. Add sat6.atgreen.org and ipa.atgreen.org to the ```/etc/hosts```
+   file on this new server.
+
+1. Run "`rpm -ihv http://sat6.atgreen.org/pub/katello-ca-consumer-latest.noarch.rpm`"
+
+1. Run "`subscription-manager register --org="OCP_PoC" --activationkey 'rhel-7-server-ak'`"
+
+1. Run "```subscription-manager repos --enable=\*```"
+
+1. Run "```yum install -y ipa-client katello-agent && yum -y update && reboot```"
+
+1. Log back in and run "```ipa-client-install --mkhomedir -p admin -w Redhat1! -U```"
