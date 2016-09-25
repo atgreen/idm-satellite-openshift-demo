@@ -255,7 +255,8 @@ The IdM server will host DNS and user authentication services.
 
 1. Run "`yum install -y ipa-server ipa-server-dns katello-agent && yum -y update && reboot`"
 
-1. Log back into the IdM server and run "```ipa-server-install -r ATGREEN.ORG --hostname=ipa.atgreen.org -p Redhat1! -a Redhat1! -n atgreen.org --ssh-trust-dns -U```".
+1. Log back into the IdM server and run "```ipa-server-install -r ATGREEN.ORG --setup-dns --forwarder 64.6.64.6 --forwarder 8.8.8.8 --hostname=ipa.atgreen.org -p Redhat1! -a Redhat1! -n atgreen.org --ssh-trust-dns -U```".  Feel free to use some other DNS IPs for the DNS forwarder.  The ones provided here are for Verisign's and Google's
+public DNS services.
 
 1. Configure the firewall like so...
 <pre><code>firewall-cmd --permanent --add-service=http --add-service=https \
