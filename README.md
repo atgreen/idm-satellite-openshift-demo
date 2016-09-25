@@ -265,10 +265,10 @@ public DNS services.
 
     firewall-cmd --reload</code></pre>
 
-1. Log back into the Satellite server and set /etc/resolv.conf to
+1. Log back into the Satellite server and set ```/etc/resolv.conf``` to
    point at the IdM server, where DNS is now hosted.
 
-1. On the Satellite, run "`ipa-client-install --mkhomedir`"
+1. On the Satellite, run "```ipa-client-install --mkhomedir```"
 
 1. Set the nameserver on your browser host to point at the IdM server,
    and keep it there.
