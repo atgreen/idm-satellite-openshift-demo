@@ -349,4 +349,16 @@ Satellite provided URL on that screen.  To execute this script against
 every ImageStream in one batch run, do this: `OC_EDITOR=./fix.sh oc
 edit is -n openshift`.
 
+# Next Steps
 
+Congratulations!  You now have a functional OpenShift environment
+provisioned entirely through Satellite.  Some interesting next steps
+are to configure persistent storage, enable metrics and logging, and
+to switch user authentication over to LDAP on IdM.
+
+Feedback on this tutorial via the github issue tracker is welcome.
+
+
+Thank you,
+
+Anthony Green
