@@ -255,7 +255,13 @@ The IdM server will host DNS and user authentication services.
 
 1. Run "`yum install -y ipa-server ipa-server-dns katello-agent && yum -y update && reboot`"
 
-1. Log back into the IdM server and run "`ipa-server-install --setup-dns --mkhomedir`"
+1. Log back into the IdM server and run "```ipa-server-install -r ATGREEN.ORG --hostname=ipa.atgreen.org -p Redhat1! -a Redhat1! -n atgreen.org --ssh-trust-dns -U```".
+
+1. Configure the firewall like so...
+<pre><code>    firewall-cmd --permanent --add-service=http --add-service=https \
+       --add-service=ldap --add-service=ldaps --add-service=kerberos \
+       --add-service=kpasswd --add-service=dns --add-service=ntp
+    firewall-cmd --reload</code></pre>
 
 1. Log back into the Satellite server and set /etc/resolv.conf to
    point at the IdM server, where DNS is now hosted.
