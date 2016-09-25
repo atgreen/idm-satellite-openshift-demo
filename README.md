@@ -1,22 +1,22 @@
 # idm-satellite-openshift-demo
 Notes on installing and configuring a OpenShift Container Platform in a disconnected environment with IdM and Satellite 6
 
-# WORK IN PROGRESS
-
-The following configurations of IdM, Satellite and OpenShift Container
-Platform (OCP) assume that we're working in a lab environment that is
-disconnected from typical enterprise services.  For the most part, we
-also assume no access to the internet.  The one exception would be for
-the Satellite server, which is allowed to access the internet via web
-proxy.
+If you've ever found yourself working in a disconnected environment
+with limited internet access, and wanting to install OpenShift, this
+is the document for you!  The following configurations of IdM,
+Satellite and OpenShift Container Platform (OCP) assume that we're
+working in a lab environment that is disconnected from typical
+enterprise services.  We also assume, for the most part, that there is
+no access to the internet, with the one exception of the Satellite
+server, which is allowed to access the internet via web proxy.
 
 # Step 1: Install Satellite 6
 
 In the disconnected environment, Red Hat Satellite becomes the conduit
-through which all content will be presented to the demo systems.  This
-includes, among other things, hosting RPM content and all docker
-container images.  Of course, this assumes that Satellite is able to
-proxy out to the internet, which is typically the case.
+through which all content will be provided to the demo environment.
+This includes hosting RPM content and all docker container images.
+This, of course, assumes that Satellite is able to proxy out to the
+internet.
 
 We will not be using Satellite to provision systems.  It will just be
 acting as the trusted repository for RPM and container content.
