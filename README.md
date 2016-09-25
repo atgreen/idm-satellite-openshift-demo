@@ -334,3 +334,11 @@ determine the device name.  In my example, it is `/dev/vdb`.
     # host group for nodes, includes region info
     [nodes]
     ocp.atgreen.org openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true</code></pre>
+
+1. Create a file called `fix.sh` that looks like this:
+<pre><code>#!/bin/sh
+    perl -p -i -e "s|sat6.atgreen.org:5000/openshift3/|sat6.atgreen.org:5000/ocp_poc-ocp_docker_images-openshift3_|g" $1
+    perl -p -i -e "s|sat6.atgreen.org:5000/rhscl/|sat6.atgreen.org:5000/ocp_poc-ocp_docker_images-rhscl_|g" $1</code></pre>
+This is required in order to rewrite ImageStream references so they pull bits out of Satellite correctly.  Run this script against every ImageStream definition like so: `OC_EDITOR=./fix.sh oc edit is -n openshift`.
+
+
