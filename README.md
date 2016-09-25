@@ -280,15 +280,14 @@ The OCP server will be an all-in-one OpenShift deployment.
 1. Create a VM with 8GB of RAM and 30GB of storage.  Name it
    `idm.atgreen.org`.
 
-1. Add sat6.atgreen.org and ipa.atgreen.org to the ```/etc/hosts```
-   file on this new server.
+1. Make sure `/etc/resolv.conf` is pointing at the new IdM server.
 
 1. Run "`rpm -ihv http://sat6.atgreen.org/pub/katello-ca-consumer-latest.noarch.rpm`"
 
-1. Run "`subscription-manager register --org="OCP_PoC" --activationkey 'rhel-7-server-ak'`"
+1. Run "`subscription-manager register --org="OCP_PoC" --activationkey 'ocp-server-ak'`"
 
 1. Run "```subscription-manager repos --enable=\*```"
 
-1. Run "```yum install -y ipa-client katello-agent && yum -y update && reboot```"
+1. Run "```yum install -y ipa-client katello-agent docker ansible-openshift-playbooks && yum -y update && reboot```"
 
 1. Log back in and run "```ipa-client-install --mkhomedir -p admin -w Redhat1! -U```"
