@@ -341,7 +341,7 @@ determine the device name.  In my example, it is `/dev/vdb`.
     perl -p -i -e "s|sat6.atgreen.org:5000/rhscl/|sat6.atgreen.org:5000/ocp_poc-ocp_docker_images-rhscl_|g" $1</code></pre>
 This is required in order to rewrite ImageStream references so they
 pull bits out of Satellite correctly.  The string we're converting to
-maps to the URLs provided by Satellite for the docker registries it is
+map to the URLs provided by Satellite for the docker registries it is
 hosting.  You can verify these by going logging into the Satellite,
 and going to Content>Products, selecting the container product ("OCP
 Docker Images") and then selecting on of the containers.  You'll see
