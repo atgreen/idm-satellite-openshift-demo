@@ -278,7 +278,7 @@ public DNS services.
 The OCP server will be an all-in-one OpenShift deployment.
 
 1. Create a VM with 8GB of RAM and 30GB of storage.  Name it
-   `idm.atgreen.org`.
+   `ocp.atgreen.org`.
 
 1. Make sure `/etc/resolv.conf` is pointing at the new IdM server.
 
