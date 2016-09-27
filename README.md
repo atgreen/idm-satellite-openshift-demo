@@ -335,7 +335,9 @@ determine the device name.  In my example, it is `/dev/vdb`.
     [nodes]
     ocp.atgreen.org openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true</code></pre>
 
-1. Create a file called `fix.sh` that looks like this:
+1. Run "`ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml`".
+
+1. Create an executable file called `fix.sh` that looks like this:
 <pre><code>#!/bin/sh
     perl -p -i -e "s|sat6.atgreen.org:5000/openshift3/|sat6.atgreen.org:5000/ocp_poc-ocp_docker_images-openshift3_|g" $1
     perl -p -i -e "s|sat6.atgreen.org:5000/rhscl/|sat6.atgreen.org:5000/ocp_poc-ocp_docker_images-rhscl_|g" $1</code></pre>
