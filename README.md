@@ -273,6 +273,9 @@ public DNS services.
 1. Set the nameserver on your browser host to point at the IdM server,
    and keep it there.
 
+1. Configure Satellite to authenticate users defined in IdM by running the following command on the satellite server:
+"```satellite-installer --foreman-ipa-authentication=true```".
+
 # Step 3: Install OpenShift Container Platform (OCP)
 
 The OCP server will be an all-in-one OpenShift deployment.
