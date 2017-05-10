@@ -63,7 +63,19 @@ done;</code></pre>
 --katello-proxy-port Port the proxy is running on (default: nil)
 --katello-proxy-url URL of the proxy server (default: nil)
 --katello-proxy-username Proxy username for authentication (default: nil)</code></pre>
-  
+
+1. Configure the satellite firewall like so:
+<pre><code>firewall-cmd --add-port="53/udp" --add-port="53/tcp" \
+ --add-port="67/udp" \
+ --add-port="69/udp" --add-port="80/tcp" \
+ --add-port="443/tcp" --add-port="5647/tcp" \
+ --add-port="8140/tcp" \
+&& firewall-cmd --permanent --add-port="53/udp" --add-port="53/tcp" \
+ --add-port="67/udp" \
+ --add-port="69/udp" --add-port="80/tcp" \
+ --add-port="443/tcp" --add-port="5647/tcp" \
+ --add-port="8140/tcp"</code></pre>
+ 
 1. Log into access.redhat.com and generate a manifest for your
    Satellite with all required subscriptions.  You'll need a RHEL
    Server subscription for the IdM server, and some number of
